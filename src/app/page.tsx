@@ -1,6 +1,30 @@
 import Image from "next/image";
 
 export default function Home() {
+  // データ構造を定義
+  type ContractDetails = {
+    amountExcludingTax: number; // 税抜金額
+    salesTaxRate: number; // 消費税率
+  };
+
+  // ロジックを一元管理
+  const calculateAmountIncludingTax = (details: ContractDetails): number => {
+    const { amountExcludingTax, salesTaxRate } = details;
+    return amountExcludingTax * (1 + salesTaxRate);
+  };
+
+  // 使用例
+  const contractDetails: ContractDetails = {
+    amountExcludingTax: 1000,
+    salesTaxRate: 0.1, // 10% 税率
+  };
+
+  const totalAmount = calculateAmountIncludingTax(contractDetails);
+
+  console.log(`税込金額: ${totalAmount}`); // 税込金額: 1100
+
+
+
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
